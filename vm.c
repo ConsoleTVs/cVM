@@ -29,7 +29,7 @@ int main() {
     int memory[MEMORY_SIZE] = { 0 };
     // Program code to execute.
     const opcode_t code[] = {
-        { .kind = Loadi, .op1 = 0, .op2 = 20 }, // r0 = 20;
+        { .kind = Loadi, .op1 = 0, .op2 = 20000 }, // r0 = 20000;
         { .kind = Loadi, .op1 = 1, .op2 = 0 }, // r1 = 0;
         { .kind = Compare, .op1 = 2, .op2 = 0, .op3 = 1 }, // r2 = r0 == r1;
         { .kind = Branch, .op1 = 2, .op2 = 2 }, // if (r2 == 0) goto +2;
@@ -42,7 +42,7 @@ int main() {
     // The VM itself.
     for (;;) {
         const opcode_t op = code[pc];
-        printf("(%u) Kind = %u\n\tr0=%d\tr1=%d\tr2=%d\n", pc, op.kind, memory[0], memory[1], memory[2]);
+        // printf("(%u) Kind = %u\n\tr0=%d\tr1=%d\tr2=%d\n", pc, op.kind, memory[0], memory[1], memory[2]);
         switch (op.kind) {
             case Loadi: { memory[op.op1] = op.op2; break; }
             case Addi: { memory[op.op1] = memory[op.op2] + op.op3; break; }
@@ -53,6 +53,5 @@ int main() {
         }
         pc++;
     }
-    end: printf("Finished!");
-    return EXIT_SUCCESS;
+    end: return EXIT_SUCCESS;
 }
